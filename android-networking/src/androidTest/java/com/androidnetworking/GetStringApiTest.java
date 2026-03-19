@@ -17,8 +17,7 @@
 
 package com.androidnetworking;
 
-import android.app.Application;
-import android.test.ApplicationTestCase;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.androidnetworking.common.ANConstants;
 import com.androidnetworking.common.ANRequest;
@@ -28,7 +27,10 @@ import com.androidnetworking.interfaces.OkHttpResponseAndStringRequestListener;
 import com.androidnetworking.interfaces.OkHttpResponseListener;
 import com.androidnetworking.interfaces.StringRequestListener;
 
+import org.junit.Before;
 import org.junit.Rule;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
@@ -40,22 +42,20 @@ import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-public class GetStringApiTest extends ApplicationTestCase<Application> {
+@RunWith(AndroidJUnit4.class)
+public class GetStringApiTest {
 
     @Rule
     public final MockWebServer server = new MockWebServer();
 
-    public GetStringApiTest() {
-        super(Application.class);
-    }
-
-    @Override
+    @Before
     public void setUp() throws Exception {
-        super.setUp();
-        createApplication();
     }
 
+    @Test
     public void testStringGetRequest() throws InterruptedException {
 
         server.enqueue(new MockResponse().setBody("data"));
@@ -83,6 +83,7 @@ public class GetStringApiTest extends ApplicationTestCase<Application> {
         assertEquals("data", responseRef.get());
     }
 
+    @Test
     public void testStringGetRequest404() throws InterruptedException {
 
         server.enqueue(new MockResponse().setResponseCode(404).setBody("data"));
@@ -119,6 +120,7 @@ public class GetStringApiTest extends ApplicationTestCase<Application> {
 
     }
 
+    @Test
     @SuppressWarnings("unchecked")
     public void testSynchronousStringGetRequest() throws InterruptedException {
 
@@ -131,6 +133,7 @@ public class GetStringApiTest extends ApplicationTestCase<Application> {
         assertEquals("data", response.getResult());
     }
 
+    @Test
     @SuppressWarnings("unchecked")
     public void testSynchronousStringGetRequest404() throws InterruptedException {
 
@@ -149,6 +152,7 @@ public class GetStringApiTest extends ApplicationTestCase<Application> {
         assertEquals(404, error.getErrorCode());
     }
 
+    @Test
     public void testResponseBodyGet() throws InterruptedException {
 
         server.enqueue(new MockResponse().setBody("data"));
@@ -181,6 +185,7 @@ public class GetStringApiTest extends ApplicationTestCase<Application> {
         assertEquals("data", responseRef.get());
     }
 
+    @Test
     public void testResponseBodyGet404() throws InterruptedException {
 
         server.enqueue(new MockResponse().setResponseCode(404).setBody("data"));
@@ -217,6 +222,7 @@ public class GetStringApiTest extends ApplicationTestCase<Application> {
         assertEquals(404, errorCodeRef.get().intValue());
     }
 
+    @Test
     @SuppressWarnings("unchecked")
     public void testSyncResponseBodyGet() throws InterruptedException, IOException {
 
@@ -230,6 +236,7 @@ public class GetStringApiTest extends ApplicationTestCase<Application> {
 
     }
 
+    @Test
     @SuppressWarnings("unchecked")
     public void testSyncResponseBodyGet404() throws InterruptedException, IOException {
 
@@ -244,6 +251,7 @@ public class GetStringApiTest extends ApplicationTestCase<Application> {
         assertEquals(404, response.getResult().code());
     }
 
+    @Test
     public void testResponseBodyAndStringGet() throws InterruptedException {
 
         server.enqueue(new MockResponse().setBody("data"));
@@ -275,6 +283,7 @@ public class GetStringApiTest extends ApplicationTestCase<Application> {
         assertEquals("data", responseStringRef.get());
     }
 
+    @Test
     public void testResponseBodyAndStringGet404() throws InterruptedException {
 
         server.enqueue(new MockResponse().setResponseCode(404).setBody("data"));
@@ -311,6 +320,7 @@ public class GetStringApiTest extends ApplicationTestCase<Application> {
         assertEquals(404, errorCodeRef.get().intValue());
     }
 
+    @Test
     public void testHeaderGetRequest() throws InterruptedException {
 
         server.enqueue(new MockResponse().setBody("data"));

@@ -19,8 +19,7 @@
 
 package com.androidnetworking;
 
-import android.app.Application;
-import android.test.ApplicationTestCase;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.androidnetworking.common.ANConstants;
 import com.androidnetworking.common.ANRequest;
@@ -31,7 +30,10 @@ import com.androidnetworking.interfaces.ParsedRequestListener;
 import com.androidnetworking.model.User;
 
 import org.json.JSONException;
+import org.junit.Before;
 import org.junit.Rule;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
@@ -43,26 +45,24 @@ import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by amitshekhar on 12/04/17.
  */
 
-public class MultipartObjectApiTest extends ApplicationTestCase<Application> {
+@RunWith(AndroidJUnit4.class)
+public class MultipartObjectApiTest {
 
     @Rule
     public final MockWebServer server = new MockWebServer();
 
-    public MultipartObjectApiTest() {
-        super(Application.class);
-    }
-
-    @Override
+    @Before
     public void setUp() throws Exception {
-        super.setUp();
-        createApplication();
     }
 
+    @Test
     public void testObjectMultipartRequest() throws InterruptedException {
 
         server.enqueue(new MockResponse().setBody("{\"firstName\":\"Amit\", \"lastName\":\"Shekhar\"}"));
@@ -94,6 +94,7 @@ public class MultipartObjectApiTest extends ApplicationTestCase<Application> {
         assertEquals("Shekhar", lastNameRef.get());
     }
 
+    @Test
     public void testObjectMultipartRequest404() throws InterruptedException {
 
         server.enqueue(new MockResponse().setResponseCode(404).setBody("data"));
@@ -131,6 +132,7 @@ public class MultipartObjectApiTest extends ApplicationTestCase<Application> {
 
     }
 
+    @Test
     public void testObjectListMultipartRequest() throws InterruptedException {
 
         server.enqueue(new MockResponse().setBody("[{\"firstName\":\"Amit\", \"lastName\":\"Shekhar\"}]"));
@@ -162,6 +164,7 @@ public class MultipartObjectApiTest extends ApplicationTestCase<Application> {
         assertEquals("Shekhar", lastNameRef.get());
     }
 
+    @Test
     public void testObjectListMultipartRequest404() throws InterruptedException {
 
         server.enqueue(new MockResponse().setResponseCode(404).setBody("data"));
@@ -199,6 +202,7 @@ public class MultipartObjectApiTest extends ApplicationTestCase<Application> {
 
     }
 
+    @Test
     @SuppressWarnings("unchecked")
     public void testSynchronousObjectMultipartRequest() throws InterruptedException, JSONException {
 
@@ -215,6 +219,7 @@ public class MultipartObjectApiTest extends ApplicationTestCase<Application> {
         assertEquals("Shekhar", response.getResult().lastName);
     }
 
+    @Test
     @SuppressWarnings("unchecked")
     public void testSynchronousObjectMultipartRequest404() throws InterruptedException {
 
@@ -236,6 +241,7 @@ public class MultipartObjectApiTest extends ApplicationTestCase<Application> {
 
     }
 
+    @Test
     @SuppressWarnings("unchecked")
     public void testSynchronousObjectListMultipartRequest() throws InterruptedException, JSONException {
 
@@ -255,6 +261,7 @@ public class MultipartObjectApiTest extends ApplicationTestCase<Application> {
 
     }
 
+    @Test
     @SuppressWarnings("unchecked")
     public void testSynchronousObjectListMultipartRequest404() throws InterruptedException {
 
@@ -276,6 +283,7 @@ public class MultipartObjectApiTest extends ApplicationTestCase<Application> {
 
     }
 
+    @Test
     public void testResponseBodyAndObjectMultipart() throws InterruptedException {
 
         server.enqueue(new MockResponse().setBody("{\"firstName\":\"Amit\", \"lastName\":\"Shekhar\"}"));
@@ -312,6 +320,7 @@ public class MultipartObjectApiTest extends ApplicationTestCase<Application> {
         assertEquals("Shekhar", lastNameRef.get());
     }
 
+    @Test
     public void testResponseBodyAndObjectMultipart404() throws InterruptedException {
 
         server.enqueue(new MockResponse().setResponseCode(404).setBody("data"));
@@ -350,6 +359,7 @@ public class MultipartObjectApiTest extends ApplicationTestCase<Application> {
         assertEquals(404, errorCodeRef.get().intValue());
     }
 
+    @Test
     public void testResponseBodyAndObjectListMultipart() throws InterruptedException {
 
         server.enqueue(new MockResponse().setBody("[{\"firstName\":\"Amit\", \"lastName\":\"Shekhar\"}]"));
@@ -386,6 +396,7 @@ public class MultipartObjectApiTest extends ApplicationTestCase<Application> {
         assertEquals("Shekhar", lastNameRef.get());
     }
 
+    @Test
     public void testResponseBodyAndObjectListMultipart404() throws InterruptedException {
 
         server.enqueue(new MockResponse().setResponseCode(404).setBody("data"));
@@ -424,6 +435,7 @@ public class MultipartObjectApiTest extends ApplicationTestCase<Application> {
         assertEquals(404, errorCodeRef.get().intValue());
     }
 
+    @Test
     public void testHeaderMultipartRequest() throws InterruptedException {
 
         server.enqueue(new MockResponse().setBody("{\"firstName\":\"Amit\", \"lastName\":\"Shekhar\"}"));

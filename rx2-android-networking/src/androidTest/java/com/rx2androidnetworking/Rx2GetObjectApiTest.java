@@ -19,14 +19,16 @@
 
 package com.rx2androidnetworking;
 
-import android.app.Application;
-import android.test.ApplicationTestCase;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.androidnetworking.common.ANConstants;
 import com.androidnetworking.error.ANError;
 import com.rx2androidnetworking.model.User;
 
+import org.junit.Before;
 import org.junit.Rule;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
@@ -42,26 +44,24 @@ import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by amitshekhar on 26/04/17.
  */
 
-public class Rx2GetObjectApiTest extends ApplicationTestCase<Application> {
+@RunWith(AndroidJUnit4.class)
+public class Rx2GetObjectApiTest {
 
     @Rule
     public final MockWebServer server = new MockWebServer();
 
-    public Rx2GetObjectApiTest() {
-        super(Application.class);
-    }
-
-    @Override
+    @Before
     public void setUp() throws Exception {
-        super.setUp();
-        createApplication();
     }
 
+    @Test
     public void testObjectGetRequest() throws InterruptedException {
 
         server.enqueue(new MockResponse().setBody("{\"firstName\":\"Amit\", \"lastName\":\"Shekhar\"}"));
@@ -112,6 +112,7 @@ public class Rx2GetObjectApiTest extends ApplicationTestCase<Application> {
         assertEquals("Shekhar", lastNameRef.get());
     }
 
+    @Test
     public void testObjectSingleGetRequest() throws InterruptedException {
 
         server.enqueue(new MockResponse().setBody("{\"firstName\":\"Amit\", \"lastName\":\"Shekhar\"}"));
@@ -153,6 +154,7 @@ public class Rx2GetObjectApiTest extends ApplicationTestCase<Application> {
         assertEquals("Shekhar", lastNameRef.get());
     }
 
+    @Test
     public void testObjectGetRequest404() throws InterruptedException {
 
         server.enqueue(new MockResponse().setResponseCode(404).setBody("data"));
@@ -206,6 +208,7 @@ public class Rx2GetObjectApiTest extends ApplicationTestCase<Application> {
 
     }
 
+    @Test
     public void testObjectSingleGetRequest404() throws InterruptedException {
 
         server.enqueue(new MockResponse().setResponseCode(404).setBody("data"));
@@ -254,6 +257,7 @@ public class Rx2GetObjectApiTest extends ApplicationTestCase<Application> {
 
     }
 
+    @Test
     public void testObjectListGetRequest() throws InterruptedException {
 
         server.enqueue(new MockResponse().setBody("[{\"firstName\":\"Amit\", \"lastName\":\"Shekhar\"}]"));
@@ -304,6 +308,7 @@ public class Rx2GetObjectApiTest extends ApplicationTestCase<Application> {
         assertEquals("Shekhar", lastNameRef.get());
     }
 
+    @Test
     public void testObjectListSingleGetRequest() throws InterruptedException {
 
         server.enqueue(new MockResponse().setBody("[{\"firstName\":\"Amit\", \"lastName\":\"Shekhar\"}]"));
@@ -346,6 +351,7 @@ public class Rx2GetObjectApiTest extends ApplicationTestCase<Application> {
         assertEquals("Shekhar", lastNameRef.get());
     }
 
+    @Test
     public void testObjectListGetRequest404() throws InterruptedException {
 
         server.enqueue(new MockResponse().setResponseCode(404).setBody("data"));
@@ -399,6 +405,7 @@ public class Rx2GetObjectApiTest extends ApplicationTestCase<Application> {
 
     }
 
+    @Test
     public void testObjectListSingleGetRequest404() throws InterruptedException {
 
         server.enqueue(new MockResponse().setResponseCode(404).setBody("data"));

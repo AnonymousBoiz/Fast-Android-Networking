@@ -19,11 +19,11 @@
 
 buildscript {
     repositories {
-        jcenter()
         google()
+        mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.4'
+        classpath 'com.android.tools.build:gradle:9.1.0'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -31,31 +31,29 @@ buildscript {
 
 allprojects {
     repositories {
-        jcenter()
         google()
+        mavenCentral()
     }
-}
-
-task clean(type: Delete) {
-    delete rootProject.buildDir
 }
 
 ext {
     // App tools version
-    compileSdkVersion = 27
-    minSdkVersion = 14
-    targetSdkVersion = 27
-    buildToolsVersion = "27.0.3"
+    compileSdkVersion = 36
+    minSdkVersion = 21
+    targetSdkVersion = 36
 
     // App dependencies versions
-    okHttp3Version = "3.10.0"
-    gsonVersion = "2.8.2"
-    jacksonVersion = "2.8.2"
+
+
     rxJavaVersion = "1.3.8"
     rxJavaAndroidVersion = "1.2.1"
-    rxJava2Version = "2.1.12"
-    rxJava2AndroidVersion = "2.0.2"
-    jUnitVersion = "4.12"
-    mockWebServerVersion = "3.10.0"
-    supportAppCompatVersion = "27.1.1"
+
+    rxJava2Version = "2.2.21"
+    rxJava2AndroidVersion = "2.1.1"
+    jacksonVersion = "2.21.1"
+    mockWebServerVersion = "5.3.2"
+    jUnitVersion = "4.13.2"
+    supportAppCompatVersion = "1.7.1"
+    okHttp3Version = "5.3.0"
+    gsonVersion = "2.13.2"
 }

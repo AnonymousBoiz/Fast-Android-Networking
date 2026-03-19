@@ -21,10 +21,11 @@ package com.rx2sampleapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.Pair;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.androidnetworking.interfaces.AnalyticsListener;
 import com.rx2androidnetworking.Rx2AndroidNetworking;

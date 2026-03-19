@@ -19,8 +19,7 @@
 
 package com.androidnetworking;
 
-import android.app.Application;
-import android.test.ApplicationTestCase;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.androidnetworking.common.ANConstants;
 import com.androidnetworking.common.ANRequest;
@@ -34,7 +33,10 @@ import com.androidnetworking.interfaces.OkHttpResponseAndJSONObjectRequestListen
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.Before;
 import org.junit.Rule;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
@@ -45,26 +47,24 @@ import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by amitshekhar on 06/04/17.
  */
 
-public class PostJSONApiTest extends ApplicationTestCase<Application> {
+@RunWith(AndroidJUnit4.class)
+public class PostJSONApiTest {
 
     @Rule
     public final MockWebServer server = new MockWebServer();
 
-    public PostJSONApiTest() {
-        super(Application.class);
-    }
-
-    @Override
+    @Before
     public void setUp() throws Exception {
-        super.setUp();
-        createApplication();
     }
 
+    @Test
     public void testJSONObjectPostRequest() throws InterruptedException {
 
         server.enqueue(new MockResponse().setBody("{\"firstName\":\"Amit\", \"lastName\":\"Shekhar\"}"));
@@ -101,6 +101,7 @@ public class PostJSONApiTest extends ApplicationTestCase<Application> {
         assertEquals("Shekhar", lastNameRef.get());
     }
 
+    @Test
     public void testJSONObjectPostRequest404() throws InterruptedException {
 
         server.enqueue(new MockResponse().setResponseCode(404).setBody("data"));
@@ -139,6 +140,7 @@ public class PostJSONApiTest extends ApplicationTestCase<Application> {
 
     }
 
+    @Test
     public void testJSONArrayPostRequest() throws InterruptedException {
 
         server.enqueue(new MockResponse().setBody("[{\"firstName\":\"Amit\", \"lastName\":\"Shekhar\"}]"));
@@ -176,6 +178,7 @@ public class PostJSONApiTest extends ApplicationTestCase<Application> {
         assertEquals("Shekhar", lastNameRef.get());
     }
 
+    @Test
     public void testJSONArrayPostRequest404() throws InterruptedException {
 
         server.enqueue(new MockResponse().setResponseCode(404).setBody("data"));
@@ -214,6 +217,7 @@ public class PostJSONApiTest extends ApplicationTestCase<Application> {
 
     }
 
+    @Test
     @SuppressWarnings("unchecked")
     public void testSynchronousJSONObjectPostRequest() throws InterruptedException, JSONException {
 
@@ -231,6 +235,7 @@ public class PostJSONApiTest extends ApplicationTestCase<Application> {
         assertEquals("Shekhar", response.getResult().getString("lastName"));
     }
 
+    @Test
     @SuppressWarnings("unchecked")
     public void testSynchronousJSONObjectPostRequest404() throws InterruptedException {
 
@@ -253,6 +258,7 @@ public class PostJSONApiTest extends ApplicationTestCase<Application> {
 
     }
 
+    @Test
     @SuppressWarnings("unchecked")
     public void testSynchronousJSONArrayPostRequest() throws InterruptedException, JSONException {
 
@@ -273,6 +279,7 @@ public class PostJSONApiTest extends ApplicationTestCase<Application> {
 
     }
 
+    @Test
     @SuppressWarnings("unchecked")
     public void testSynchronousJSONArrayPostRequest404() throws InterruptedException {
 
@@ -295,6 +302,7 @@ public class PostJSONApiTest extends ApplicationTestCase<Application> {
 
     }
 
+    @Test
     public void testResponseBodyAndJSONObjectPost() throws InterruptedException {
 
         server.enqueue(new MockResponse().setBody("{\"firstName\":\"Amit\", \"lastName\":\"Shekhar\"}"));
@@ -335,6 +343,7 @@ public class PostJSONApiTest extends ApplicationTestCase<Application> {
         assertEquals("Shekhar", lastNameRef.get());
     }
 
+    @Test
     public void testResponseBodyAndJSONObjectPost404() throws InterruptedException {
 
         server.enqueue(new MockResponse().setResponseCode(404).setBody("data"));
@@ -373,6 +382,7 @@ public class PostJSONApiTest extends ApplicationTestCase<Application> {
         assertEquals(404, errorCodeRef.get().intValue());
     }
 
+    @Test
     public void testResponseBodyAndJSONArrayPost() throws InterruptedException {
 
         server.enqueue(new MockResponse().setBody("[{\"firstName\":\"Amit\", \"lastName\":\"Shekhar\"}]"));
@@ -414,6 +424,7 @@ public class PostJSONApiTest extends ApplicationTestCase<Application> {
         assertEquals("Shekhar", lastNameRef.get());
     }
 
+    @Test
     public void testResponseBodyAndJSONArrayPost404() throws InterruptedException {
 
         server.enqueue(new MockResponse().setResponseCode(404).setBody("data"));
@@ -452,6 +463,7 @@ public class PostJSONApiTest extends ApplicationTestCase<Application> {
         assertEquals(404, errorCodeRef.get().intValue());
     }
 
+    @Test
     public void testHeaderPostRequest() throws InterruptedException {
 
         server.enqueue(new MockResponse().setBody("{\"firstName\":\"Amit\", \"lastName\":\"Shekhar\"}"));

@@ -19,8 +19,7 @@
 
 package com.androidnetworking;
 
-import android.app.Application;
-import android.test.ApplicationTestCase;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.androidnetworking.common.ANConstants;
 import com.androidnetworking.common.ANRequest;
@@ -31,7 +30,10 @@ import com.androidnetworking.interfaces.ParsedRequestListener;
 import com.androidnetworking.model.User;
 
 import org.json.JSONException;
+import org.junit.Before;
 import org.junit.Rule;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
@@ -43,26 +45,24 @@ import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by amitshekhar on 11/04/17.
  */
 
-public class PostObjectApiTest extends ApplicationTestCase<Application> {
+@RunWith(AndroidJUnit4.class)
+public class PostObjectApiTest {
 
     @Rule
     public final MockWebServer server = new MockWebServer();
 
-    public PostObjectApiTest() {
-        super(Application.class);
-    }
-
-    @Override
+    @Before
     public void setUp() throws Exception {
-        super.setUp();
-        createApplication();
     }
 
+    @Test
     public void testObjectPostRequest() throws InterruptedException {
 
         server.enqueue(new MockResponse().setBody("{\"firstName\":\"Amit\", \"lastName\":\"Shekhar\"}"));
@@ -95,6 +95,7 @@ public class PostObjectApiTest extends ApplicationTestCase<Application> {
         assertEquals("Shekhar", lastNameRef.get());
     }
 
+    @Test
     public void testObjectPostRequest404() throws InterruptedException {
 
         server.enqueue(new MockResponse().setResponseCode(404).setBody("data"));
@@ -133,6 +134,7 @@ public class PostObjectApiTest extends ApplicationTestCase<Application> {
 
     }
 
+    @Test
     public void testObjectListPostRequest() throws InterruptedException {
 
         server.enqueue(new MockResponse().setBody("[{\"firstName\":\"Amit\", \"lastName\":\"Shekhar\"}]"));
@@ -165,6 +167,7 @@ public class PostObjectApiTest extends ApplicationTestCase<Application> {
         assertEquals("Shekhar", lastNameRef.get());
     }
 
+    @Test
     public void testObjectListPostRequest404() throws InterruptedException {
 
         server.enqueue(new MockResponse().setResponseCode(404).setBody("data"));
@@ -203,6 +206,7 @@ public class PostObjectApiTest extends ApplicationTestCase<Application> {
 
     }
 
+    @Test
     @SuppressWarnings("unchecked")
     public void testSynchronousObjectPostRequest() throws InterruptedException, JSONException {
 
@@ -220,6 +224,7 @@ public class PostObjectApiTest extends ApplicationTestCase<Application> {
         assertEquals("Shekhar", response.getResult().lastName);
     }
 
+    @Test
     @SuppressWarnings("unchecked")
     public void testSynchronousObjectPostRequest404() throws InterruptedException {
 
@@ -242,6 +247,7 @@ public class PostObjectApiTest extends ApplicationTestCase<Application> {
 
     }
 
+    @Test
     @SuppressWarnings("unchecked")
     public void testSynchronousObjectListPostRequest() throws InterruptedException, JSONException {
 
@@ -262,6 +268,7 @@ public class PostObjectApiTest extends ApplicationTestCase<Application> {
 
     }
 
+    @Test
     @SuppressWarnings("unchecked")
     public void testSynchronousObjectListPostRequest404() throws InterruptedException {
 
@@ -284,6 +291,7 @@ public class PostObjectApiTest extends ApplicationTestCase<Application> {
 
     }
 
+    @Test
     public void testResponseBodyAndObjectPost() throws InterruptedException {
 
         server.enqueue(new MockResponse().setBody("{\"firstName\":\"Amit\", \"lastName\":\"Shekhar\"}"));
@@ -321,6 +329,7 @@ public class PostObjectApiTest extends ApplicationTestCase<Application> {
         assertEquals("Shekhar", lastNameRef.get());
     }
 
+    @Test
     public void testResponseBodyAndObjectPost404() throws InterruptedException {
 
         server.enqueue(new MockResponse().setResponseCode(404).setBody("data"));
@@ -360,6 +369,7 @@ public class PostObjectApiTest extends ApplicationTestCase<Application> {
         assertEquals(404, errorCodeRef.get().intValue());
     }
 
+    @Test
     public void testResponseBodyAndObjectListPost() throws InterruptedException {
 
         server.enqueue(new MockResponse().setBody("[{\"firstName\":\"Amit\", \"lastName\":\"Shekhar\"}]"));
@@ -397,6 +407,7 @@ public class PostObjectApiTest extends ApplicationTestCase<Application> {
         assertEquals("Shekhar", lastNameRef.get());
     }
 
+    @Test
     public void testResponseBodyAndObjectListPost404() throws InterruptedException {
 
         server.enqueue(new MockResponse().setResponseCode(404).setBody("data"));
@@ -436,6 +447,7 @@ public class PostObjectApiTest extends ApplicationTestCase<Application> {
         assertEquals(404, errorCodeRef.get().intValue());
     }
 
+    @Test
     public void testHeaderPostRequest() throws InterruptedException {
 
         server.enqueue(new MockResponse().setBody("{\"firstName\":\"Amit\", \"lastName\":\"Shekhar\"}"));

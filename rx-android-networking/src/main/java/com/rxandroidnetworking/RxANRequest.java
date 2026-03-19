@@ -23,7 +23,7 @@ import com.androidnetworking.common.ANRequest;
 import com.androidnetworking.common.Method;
 import com.androidnetworking.common.RequestType;
 import com.androidnetworking.common.ResponseType;
-import com.google.gson.internal.$Gson$Types;
+import com.google.gson.internal.GsonTypes;
 import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
@@ -186,7 +186,7 @@ public class RxANRequest extends ANRequest<RxANRequest> {
     }
 
     public <T> Observable<List<T>> getObjectListObservable(Class<T> objectClass) {
-        this.setType($Gson$Types.newParameterizedTypeWithOwner(null, List.class, objectClass));
+        this.setType(GsonTypes.newParameterizedTypeWithOwner(null, List.class, objectClass));
         this.setResponseAs(ResponseType.PARSED);
         if (this.getRequestType() == RequestType.SIMPLE) {
             return RxInternalNetworking.generateSimpleObservable(this);

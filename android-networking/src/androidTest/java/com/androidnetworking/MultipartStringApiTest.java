@@ -19,20 +19,20 @@
 
 package com.androidnetworking;
 
-import android.app.Application;
-import android.test.ApplicationTestCase;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.androidnetworking.common.ANConstants;
 import com.androidnetworking.common.ANRequest;
 import com.androidnetworking.common.ANResponse;
 import com.androidnetworking.error.ANError;
-import com.androidnetworking.interfaces.OkHttpResponseAndParsedRequestListener;
 import com.androidnetworking.interfaces.OkHttpResponseAndStringRequestListener;
 import com.androidnetworking.interfaces.OkHttpResponseListener;
 import com.androidnetworking.interfaces.StringRequestListener;
-import com.androidnetworking.model.User;
 
+import org.junit.Before;
 import org.junit.Rule;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
@@ -44,26 +44,24 @@ import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by amitshekhar on 27/03/17.
  */
 
-public class MultipartStringApiTest extends ApplicationTestCase<Application> {
+@RunWith(AndroidJUnit4.class)
+public class MultipartStringApiTest {
 
     @Rule
     public final MockWebServer server = new MockWebServer();
 
-    public MultipartStringApiTest() {
-        super(Application.class);
-    }
-
-    @Override
+    @Before
     public void setUp() throws Exception {
-        super.setUp();
-        createApplication();
     }
 
+    @Test
     public void testStringMultipartRequest() throws InterruptedException {
 
         server.enqueue(new MockResponse().setBody("data"));
@@ -92,6 +90,7 @@ public class MultipartStringApiTest extends ApplicationTestCase<Application> {
         assertEquals("data", responseRef.get());
     }
 
+    @Test
     public void testStringMultipartRequest404() throws InterruptedException {
 
         server.enqueue(new MockResponse().setResponseCode(404).setBody("data"));
@@ -128,6 +127,7 @@ public class MultipartStringApiTest extends ApplicationTestCase<Application> {
         assertEquals(404, errorCodeRef.get().intValue());
     }
 
+    @Test
     @SuppressWarnings("unchecked")
     public void testSynchronousStringMultipartRequest() throws InterruptedException {
 
@@ -142,6 +142,7 @@ public class MultipartStringApiTest extends ApplicationTestCase<Application> {
         assertEquals("data", response.getResult());
     }
 
+    @Test
     @SuppressWarnings("unchecked")
     public void testSynchronousMultipartRequest404() throws InterruptedException {
 
@@ -162,6 +163,7 @@ public class MultipartStringApiTest extends ApplicationTestCase<Application> {
         assertEquals(404, error.getErrorCode());
     }
 
+    @Test
     public void testResponseBodyMultipart() throws InterruptedException {
 
         server.enqueue(new MockResponse().setBody("data"));
@@ -195,6 +197,7 @@ public class MultipartStringApiTest extends ApplicationTestCase<Application> {
         assertEquals("data", responseRef.get());
     }
 
+    @Test
     public void testResponseBodyMultipart404() throws InterruptedException {
 
         server.enqueue(new MockResponse().setResponseCode(404).setBody("data"));
@@ -232,6 +235,7 @@ public class MultipartStringApiTest extends ApplicationTestCase<Application> {
         assertEquals(404, errorCodeRef.get().intValue());
     }
 
+    @Test
     @SuppressWarnings("unchecked")
     public void testSyncResponseBodyMultipart() throws InterruptedException, IOException {
 
@@ -247,6 +251,7 @@ public class MultipartStringApiTest extends ApplicationTestCase<Application> {
 
     }
 
+    @Test
     @SuppressWarnings("unchecked")
     public void testSyncResponseBodyMultipart404() throws InterruptedException, IOException {
 
@@ -263,6 +268,7 @@ public class MultipartStringApiTest extends ApplicationTestCase<Application> {
         assertEquals(404, response.getResult().code());
     }
 
+    @Test
     public void testResponseBodyAndStringMultipart() throws InterruptedException {
 
         server.enqueue(new MockResponse().setBody("data"));
@@ -295,6 +301,7 @@ public class MultipartStringApiTest extends ApplicationTestCase<Application> {
         assertEquals("data", responseStringRef.get());
     }
 
+    @Test
     public void testResponseBodyAndStringMultipart404() throws InterruptedException {
 
         server.enqueue(new MockResponse().setResponseCode(404).setBody("data"));
@@ -332,6 +339,7 @@ public class MultipartStringApiTest extends ApplicationTestCase<Application> {
         assertEquals(404, errorCodeRef.get().intValue());
     }
 
+    @Test
     public void testHeaderMultipartRequest() throws InterruptedException {
 
         server.enqueue(new MockResponse().setBody("data"));

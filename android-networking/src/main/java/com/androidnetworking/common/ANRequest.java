@@ -44,7 +44,7 @@ import com.androidnetworking.model.MultipartFileBody;
 import com.androidnetworking.model.MultipartStringBody;
 import com.androidnetworking.utils.ParseUtil;
 import com.androidnetworking.utils.Utils;
-import com.google.gson.internal.$Gson$Types;
+import com.google.gson.internal.GsonTypes;
 import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
@@ -268,7 +268,7 @@ public class ANRequest<T extends ANRequest> {
     }
 
     public void getAsObjectList(Class objectClass, ParsedRequestListener parsedRequestListener) {
-        this.mType = $Gson$Types.newParameterizedTypeWithOwner(null, List.class, objectClass);
+        this.mType = GsonTypes.newParameterizedTypeWithOwner(null, List.class, objectClass);
         this.mResponseType = ResponseType.PARSED;
         this.mParsedRequestListener = parsedRequestListener;
         ANRequestQueue.getInstance().addRequest(this);
@@ -314,7 +314,7 @@ public class ANRequest<T extends ANRequest> {
     }
 
     public void getAsOkHttpResponseAndObjectList(Class objectClass, OkHttpResponseAndParsedRequestListener parsedRequestListener) {
-        this.mType = $Gson$Types.newParameterizedTypeWithOwner(null, List.class, objectClass);
+        this.mType = GsonTypes.newParameterizedTypeWithOwner(null, List.class, objectClass);
         this.mResponseType = ResponseType.PARSED;
         this.mOkHttpResponseAndParsedRequestListener = parsedRequestListener;
         ANRequestQueue.getInstance().addRequest(this);
@@ -368,7 +368,7 @@ public class ANRequest<T extends ANRequest> {
     }
 
     public ANResponse executeForObjectList(Class objectClass) {
-        this.mType = $Gson$Types.newParameterizedTypeWithOwner(null, List.class, objectClass);
+        this.mType = GsonTypes.newParameterizedTypeWithOwner(null, List.class, objectClass);
         this.mResponseType = ResponseType.PARSED;
         return SynchronousCall.execute(this);
     }
