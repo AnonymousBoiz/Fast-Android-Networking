@@ -73,12 +73,12 @@ maven { setUrl("https://jitpack.io") }
 
 Add this in your `build.gradle`
 ```groovy
-implementation 'com.github.amitshekhariitbhu.Fast-Android-Networking:android-networking:1.0.4'
+implementation 'com.github.AnonymousBoiz:Fast-Android-Networking:1.0.6'
 ```
 
 If you are using `build.gradle.kts`, add the following:
 ```kotlin
-implementation("com.github.amitshekhariitbhu.Fast-Android-Networking:android-networking:1.0.4")
+implementation("com.github.AnonymousBoiz:Fast-Android-Networking:1.0.6")
 ```
 
 Do not forget to add internet permission in manifest if already not present
@@ -97,48 +97,6 @@ OkHttpClient okHttpClient = new OkHttpClient() .newBuilder()
                         .build();
 AndroidNetworking.initialize(getApplicationContext(),okHttpClient);                        
 ```
-
-Using the Fast Android Networking with Jackson Parser
-
-Add this in your `build.gradle`
-```groovy
-implementation 'com.github.amitshekhariitbhu.Fast-Android-Networking:jackson-android-networking:1.0.4'
-```
-
-If you are using `build.gradle.kts`, add the following:
-```kotlin
-implementation("com.github.amitshekhariitbhu.Fast-Android-Networking:jackson-android-networking:1.0.4")
-```
-
-```java
-// Then set the JacksonParserFactory like below
-AndroidNetworking.setParserFactory(new JacksonParserFactory());
-```
-
-Using the Fast Android Networking with RxJava2
-
-Add this in your `build.gradle`
-```groovy
-implementation 'com.github.amitshekhariitbhu.Fast-Android-Networking:rx2-android-networking:1.0.4'
-```
-
-If you are using `build.gradle.kts`, add the following:
-```kotlin
-implementation("com.github.amitshekhariitbhu.Fast-Android-Networking:rx2-android-networking:1.0.4")
-```
-
-Using the Fast Android Networking with RxJava
-
-Add this in your `build.gradle`
-```groovy
-implementation 'com.github.amitshekhariitbhu.Fast-Android-Networking:rx-android-networking:1.0.4'
-```
-
-If you are using `build.gradle.kts`, add the following:
-```kotlin
-implementation("com.github.amitshekhariitbhu.Fast-Android-Networking:rx-android-networking:1.0.4")
-```
-
 ### Making a GET Request
 ```java
 AndroidNetworking.get("https://fierce-cove-29863.herokuapp.com/getAllUsers/{pageNumber}")
