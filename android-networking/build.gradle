@@ -39,6 +39,25 @@ android {
     lintOptions {
         abortOnError false
     }
+
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+        }
+    }
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+                groupId = "com.github.AnonymousBoiz"
+                artifactId = "ads"
+                version = "1.0.6"
+            }
+        }
+    }
 }
 
 dependencies {
